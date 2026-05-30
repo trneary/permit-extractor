@@ -4,10 +4,12 @@ import pdfplumber
 def extract_field(text, label):
     lines = text.split("\n")
     for line in lines:
-        if label in line:
-            parts = line.split(":")
-            if len(parts) > 1:
-                return parts[1].strip()
+        if line.startswith(label):
+            value = line[len(label):]
+            value = value.lstrip(": ").strip()
+            # take only the first token (everything before the first whitespace)
+            value = value.split()[0]
+            return value
     return None
 
 PDF_PATH = "C:/Users/neary/Downloads/invoice.pdf"

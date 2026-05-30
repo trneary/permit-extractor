@@ -12,24 +12,28 @@ def extract_field(text, label):
             return value
     return None
 
-PDF_PATH = "C:/Users/neary/Downloads/invoice.pdf"
+def main():
+    PDF_PATH = "C:/Users/neary/Downloads/invoice.pdf"
 
-with pdfplumber.open(PDF_PATH) as pdf:
-    full_text = ""
-    for page in pdf.pages:
-        full_text += page.extract_text()
+    with pdfplumber.open(PDF_PATH) as pdf:
+        full_text = ""
+        for page in pdf.pages:
+            full_text += page.extract_text()
 
-invoice_data = {
-    'invoice_number': extract_field(full_text, 'Invoice'),
-    'account_number': extract_field(full_text, 'Account'),
-    'total_due': extract_field(full_text, 'Total Due'),
-    'invoice_date': extract_field(full_text, 'Invoice Date'),
-    'location': extract_field(full_text, 'Location'),
-}
+    invoice_data = {
+        'invoice_number': extract_field(full_text, 'Invoice'),
+        'account_number': extract_field(full_text, 'Account'),
+        'total_due': extract_field(full_text, 'Total Due'),
+        'invoice_date': extract_field(full_text, 'Invoice Date'),
+        'location': extract_field(full_text, 'Location'),
+    }
 
-print(invoice_data)
+    print(invoice_data)
 
-with open("invoice.csv", "w", newline="") as f:
-    writer = csv.DictWriter(f, fieldnames=invoice_data.keys())
-    writer.writeheader()
-    writer.writerow(invoice_data)
+    with open("invoice.csv", "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=invoice_data.keys())
+        writer.writeheader()
+        writer.writerow(invoice_data)
+
+if __name__ == "__main__":
+    main()

@@ -1,5 +1,5 @@
 import pdfplumber
-
+import csv
 
 def extract_field(text, label):
     lines = text.split("\n")
@@ -28,3 +28,8 @@ invoice_data = {
 }
 
 print(invoice_data)
+
+with open("invoice.csv", "w", newline="") as f:
+    writer = csv.DictWriter(f, fieldnames=invoice_data.keys())
+    writer.writeheader()
+    writer.writerow(invoice_data)

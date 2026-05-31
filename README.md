@@ -1,23 +1,28 @@
-# permit-extractor
+# invoice-extractor
 
-A Python tool that reads a planning board / permit PDF and extracts the structured fields into a CSV row.
+A Python tool that reads an invoice PDF and extracts important information into a CSV row.
 
 ## Why this exists
 
-(2-3 sentences — fill in later)
+This exists to obtain important information faster on an invoice PDF, and puts the information into a CSV file. The alternative is opening the PDF in a saved folder, then reading through the whole invoice to aquire this information. 
 
 ## How this works
 
-The script opens A Jersey City planning board staff report on many PDF's.  It looks for the Case Number, Property Adress, Block, Lot, and Applicant. It writes them into a CSV file, one row per PDF. This is useful because anengineer can process importnat information across many filings instead of opening each PDF one at a time
+Uses a python script to acess a local PDF file that contains invoice information (invoice number, account number, total due, invoice date, location). It searches each line of the PDF text for a known label, then slices the text after the label to pull the value. It then spits out the information in oragnzed columns in a new CSV File that is saved in the permit_extractor section in the project folder.
 
 ## What works
 
-(empty for now)
+Extracts five fields cleanly from the LAZ Parking invoice: invoice number, account number, total due, invoice date, and location
 
 ## What breaks
 
-(empty for now)
+The scanned PDF with no text layer, the substring matching problem, and the .split()[0] truncating multi-word values. 
 
 ## Setup
 
-(empty for now)
+git clone https://github.com/trneary/permit-extractor.git
+cd permit-extractor
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+python permit_extractor.py

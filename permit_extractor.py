@@ -2,6 +2,7 @@ import pdfplumber
 import csv
 
 def extract_field(text, label):
+    """Search text line by line for a label, return the value that follows it.""" 
     lines = text.split("\n")
     for line in lines:
         if line.startswith(label):
@@ -13,6 +14,7 @@ def extract_field(text, label):
     return None
 
 def main():
+    """Read a PDF invoice, extract structured fields, and write them to a CSV.""" 
     PDF_PATH = "C:/Users/neary/Downloads/invoice.pdf"
 
     with pdfplumber.open(PDF_PATH) as pdf:
@@ -27,8 +29,6 @@ def main():
         'invoice_date': extract_field(full_text, 'Invoice Date'),
         'location': extract_field(full_text, 'Location'),
     }
-
-    print(invoice_data)
 
     with open("invoice.csv", "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=invoice_data.keys())

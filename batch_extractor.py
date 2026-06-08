@@ -21,6 +21,7 @@ for pdf_path in PDF_DIR.glob("*.pdf"):
 all_fields = set()
 for r in results:
     all_fields.update(r.keys())
+all_fields.discard("source_file")
 fieldnames = ["source_file"] + sorted(all_fields)
 
 with open("invoices_batch.csv", "w", newline="") as f:
